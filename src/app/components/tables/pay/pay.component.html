@@ -1,0 +1,60 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{getTitle()}}</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="cancel()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+    </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <ion-segment (ionChange)="segmentChanged($event)" [value]="ALL_ITEMS">
+        <ion-segment-button [value]="ALL_ITEMS">
+            <ion-label>all</ion-label>
+        </ion-segment-button>
+      <ion-segment-button *ngFor="let type of getTypes()" [value]="type._id">
+        <ion-label>{{type.name}}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <ion-list>
+        <ion-item *ngFor="let orderItem of getOrderItems()">
+            <ion-button size="small" color="danger" class="list-btn" [disabled]="!hasAmountToPay(orderItem)" (click)="remove(orderItem.itemId)">
+                <ion-icon name="remove"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" class="text-btn" [disabled]="allAdded(orderItem)" (click)=add(orderItem.itemId)>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col class="left"> 
+                            {{ getItemName(orderItem) }}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col class="left">
+                            {{ getPrice(orderItem) | Currency }}
+                        </ion-col>
+                        <ion-col class="right">
+                            {{ orderItem.amount }} | {{ getAmountAddedToPayment(orderItem.itemId) }}
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-button>
+        </ion-item>
+    </ion-list>    
+</ion-content>
+
+<ion-card>
+    <ion-card-content>
+        <strong>Total:</strong> {{ getTotal() | Currency }}
+    </ion-card-content>
+</ion-card>
+
+<ion-button size="large" expand="block" [disabled]="disablePay()" (click)="pay()">Bezahlen</ion-button>
+<ion-button size="large" expand="block" (click)="addAll()">Alles hinzufügen</ion-button>
+<ion-button expand="block" (click)="removeAll()">Alles entfernen</ion-button>
+<ion-button expand="block" (click)="cancel()">Abbrechen</ion-button>

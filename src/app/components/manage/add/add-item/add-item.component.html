@@ -1,0 +1,61 @@
+<ion-header translucent>
+  <ion-toolbar color="primary">
+    <ion-title>Typ/Item hinzufügen</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Typ</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <form [formGroup]="typeForm" (ngSubmit)="addType()" (keyup.enter)="addType()">
+        <ion-item>
+          <ion-input placeholder="Typ" type="text" formControlName="name" clearInput></ion-input>
+        </ion-item>
+        <ion-button expand="block" [disabled]="!isTypeDefined()" type="submit" block>Hinzufügen</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Item</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <form [formGroup]="itemForm" (ngSubmit)="addItem()" (keyup.enter)="addItem()">
+        <ion-item>
+          <ion-select placeholder="Typ auswählen" formControlName="typeId" interface="popover">
+            <ion-select-option *ngFor="let type of getTypes()" [value]="type._id" >{{ type.name }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>   
+          <ion-input placeholder="Name" type="text" formControlName="name" clearInput></ion-input>
+        </ion-item>
+        <ion-item>          
+          <ion-input placeholder="Preis" type="number" formControlName="price" clearInput></ion-input>
+        </ion-item>
+        <ion-button expand="block" [disabled]="!isItemDefined()" type="submit" block>Hinzufügen</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>  
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Von Excel importieren</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <manage-add-import-excel sheetName="Item" (data)="setData($event)"></manage-add-import-excel>
+      <ion-button expand="block" [disabled]="!hasData()" (click)="import()">Importieren</ion-button>
+    </ion-card-content>
+  </ion-card>  
+</ion-content>

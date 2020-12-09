@@ -1,0 +1,42 @@
+<ion-header translucent>
+  <ion-toolbar color="primary">
+    <ion-title>User hinzufügen</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>User</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <form [formGroup]="userForm" (ngSubmit)="add()" (keyup.enter)="add()">
+        <ion-item>
+          <ion-input type="text" placeholder="Username" formControlName="username" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="password" placeholder="Passwort" formControlName="password" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="text" placeholder="Vorname" formControlName="firstName" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="text" placeholder="Nachname" formControlName="lastName" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-select placeholder="Role auswählen" interface="popover" formControlName="role" required>
+            <ion-select-option *ngFor="let role of getRoles()" [value]="role" >{{ role }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-button type="submit" [disabled]="!isUserDefined()" expand="block">Hinzufügen</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+

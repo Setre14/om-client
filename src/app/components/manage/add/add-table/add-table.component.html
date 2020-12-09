@@ -1,0 +1,58 @@
+<ion-header translucent>
+  <ion-toolbar color="primary">
+    <ion-title>Raum/Tisch hinzufügen</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Raum</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <form [formGroup]="locForm" (ngSubmit)="addLocation()" (keyup.enter)="addLocation()">
+        <ion-item>
+          <ion-input placeholder="Raum" type="text" formControlName="name" clearInput></ion-input>
+        </ion-item>
+        <ion-button expand="block" [disabled]="!isLocDefined()" type="submit" block>Hinzufügen</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Table</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <form [formGroup]="tableForm" (ngSubmit)="addTable()" (keyup.enter)="addTable()">
+        <ion-item>
+          <ion-select placeholder="Raum auswählen" formControlName="locId" interface="popover">
+            <ion-select-option *ngFor="let loc of getLocations()" [value]="loc._id" >{{ loc.name }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="Tisch" type="text" formControlName="name" clearInput></ion-input>
+        </ion-item>
+        <ion-button expand="block" [disabled]="!isTableDefined()" type="submit" block>Add</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>  
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Von Excel importieren</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <manage-add-import-excel sheetName="Table" (data)="setData($event)"></manage-add-import-excel>
+      <ion-button expand="block" [disabled]="!hasData()" (click)="import()">Importieren</ion-button>
+    </ion-card-content>
+  </ion-card>  
+</ion-content>

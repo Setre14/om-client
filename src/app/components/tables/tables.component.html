@@ -1,0 +1,19 @@
+<ion-tabs>
+    <ion-tab-bar *ngIf="showTabs()" slot="bottom">
+      <ion-tab-button (click)="search()">
+        <ion-icon name="search"></ion-icon>
+        <ion-label>Sucher</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button *ngIf="showTabs()" tab="overview">
+        <ion-icon name="home"></ion-icon>
+        <ion-label>Übersicht</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button *ngIf="showTabs()" (click)="readQr()">
+        <ion-icon name="qr-code"></ion-icon>
+        <ion-label>QR-Scanner</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+</ion-tabs>
+  
