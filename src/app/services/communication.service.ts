@@ -16,7 +16,7 @@ import { NavController } from '@ionic/angular';
 })
 export class CommunicationService {
   private SERVER_URL_KEY = 'serverUrl';
-  private DEFAULT_URL = 'https://om-server.setre14.com';
+  private DEFAULT_URL = 'http://localhost:3001';
 
   private url: string = '';
 
