@@ -4,11 +4,10 @@ ARG WORK_DIR=/home/node/om
 WORKDIR ${WORK_DIR}
 
 COPY package.json ${WORK_DIR}
-COPY shared/ ${WORK_DIR}/shared
-COPY client/ ${WORK_DIR}/client
+COPY ./ ${WORK_DIR}
 
-RUN yarn run installClient
-RUN yarn run buildDeployClient
+RUN yarn install
+RUN yarn run buildDeploy
 
 
 FROM node
@@ -17,11 +16,9 @@ ARG WORK_DIR=/home/node/om
 WORKDIR ${WORK_DIR}
 
 COPY --from=builder ${WORK_DIR}/package.json ${WORK_DIR}/package.json
-COPY --from=builder ${WORK_DIR}/shared/package.json ${WORK_DIR}/shared/package.json
-COPY --from=builder ${WORK_DIR}/client/package.json ${WORK_DIR}/client/package.json
-COPY --from=builder ${WORK_DIR}/client/lite-server-config.json ${WORK_DIR}/client/lite-server-config.json
-COPY --from=builder ${WORK_DIR}/client/deploy ${WORK_DIR}/client/deploy
+COPY --from=builder ${WORK_DIR}/lite-server-config.json ${WORK_DIR}/lite-server-config.json
+COPY --from=builder ${WORK_DIR}/deploy ${WORK_DIR}/deploy
 
-RUN yarn run installClientProd
+RUN yarn install
 
 ENTRYPOINT [ "yarn", "run", "startClient" ]
