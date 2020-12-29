@@ -1,7 +1,7 @@
 {
   "name": "@order-manager/client",
   "description": "Recieve and pay orders",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Florian Mader, Simon Schuster",
   "scripts": {
     "mocha": "mocha",
