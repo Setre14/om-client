@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "author": "Florian Mader, Simon Schuster",
   "scripts": {
+    "mocha": "mocha",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
@@ -58,6 +59,7 @@
     "karma-coverage-istanbul-reporter": "^2.1.1",
     "karma-jasmine": "^3.1.0",
     "karma-jasmine-html-reporter": "^1.5.1",
+    "mocha": "^8.2.1",
     "protractor": "^5.4.3",
     "ts-node": "^8.6.2",
     "tslint": "^6.0.0",
