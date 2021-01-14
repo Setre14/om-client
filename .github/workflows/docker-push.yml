@@ -28,6 +28,7 @@ jobs:
         - run: npm install
         - run: npm run mocha
   push_to_registry:
+    needs: [security, test]
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
