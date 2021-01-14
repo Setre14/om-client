@@ -3,8 +3,8 @@ name: Snyk check
 on: 
   push:
     branches:
-    - '*'
-    - '!master'
+      - '*'
+      - '!master'
 
 jobs:
   security:
